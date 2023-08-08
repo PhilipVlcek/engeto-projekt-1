@@ -10,121 +10,101 @@ discord: Filip_#8786
 
 import task_template
 
-delici_cara = "\n" + "-" * 79 + "\n"
+dividing_line = "\n" + "-" * 79 + "\n"
 
-registrovani = {
+registered = {
     "bob": "123",
     "ann": "pass123",
     "mike": "password123",
     "liz": "pass123"
 }
 
-seznam_registrovanych = list(registrovani.items())
+print(dividing_line)
 
-print(delici_cara)
+Username = input("Username: ")
+Password = input("Password: ")
 
-zadane_jmeno = input("Username: ")
-zadane_heslo = input("Password: ")
-
-if zadane_jmeno.lower() == seznam_registrovanych[0][0] and zadane_heslo == seznam_registrovanych[0][1]:
-    print(delici_cara)
-    print(f"Welcome to the app, {seznam_registrovanych[0][0]} \n-> We have 3 texts to be analyzed.")
-
-elif zadane_jmeno.lower() == seznam_registrovanych[1][0] and zadane_heslo == seznam_registrovanych[1][1]:
-    print(delici_cara)
-    print(f"Welcome to the app, {seznam_registrovanych[1][0]} \n-> We have 3 texts to be analyzed.") 
-
-elif zadane_jmeno.lower() == seznam_registrovanych[2][0] and zadane_heslo == seznam_registrovanych[2][1]:
-    print(delici_cara)
-    print(f"Welcome to the app, {seznam_registrovanych[2][0]} \n-> We have 3 texts to be analyzed.") 
-
-elif zadane_jmeno.lower() == seznam_registrovanych[3][0] and zadane_heslo == seznam_registrovanych[3][1]:
-    print(delici_cara)
-    print(f"Welcome to the app, {seznam_registrovanych[3][0]} \n-> We have 3 texts to be analyzed.")
-
+if Username in registered and Password == registered[Username]:
+    print(dividing_line)
+    print(f"Welcome to the app, {Username} \n-> We have 3 texts to be analyzed.")
 else:
-    print(delici_cara)
+    print(dividing_line)
     print("Unregistered user, terminating the program..")
     quit()   
 
-print(delici_cara)
+print(dividing_line)
 
-zadane_cislo = int(input("Enter a number to select text (1-3): "))
+number = input("Enter a number to select text (1-3): ")
 
-index_textu = None
-
-if zadane_cislo == 1:
-    index_textu = 0
-elif zadane_cislo == 2:
-    index_textu = 1
-elif zadane_cislo == 3:
-    index_textu = 2
+if number.isnumeric() and int(number) in range(1, 4):
+    (text_index := int(number) - 1)
+    print(dividing_line)
 else:
-    print(delici_cara)
+    print(dividing_line)
     print("Incorrect number")
     quit()
 
-text = task_template.TEXTS[index_textu].split()
+text = task_template.TEXTS[text_index].split()
 
-zvoleny_text = []
+selected_text = []
 
-for slovo in text:
-    zvoleny_text.append(slovo.strip(".,:;"))
+for word in text:
+    selected_text.append(word.strip(".,:;"))
 
-prvni_velke = []
-cele_velke = []
-cele_male = []
-cisla = []
+title_letter = []
+uppercase = []
+lowercase = []
+numbers = []
 
-for slovo in zvoleny_text:
+for word in selected_text:
 
-    if slovo.isnumeric():
-        cisla.append(int(slovo))
+    if word.isnumeric():
+        numbers.append(int(word))
 
-    elif slovo.isupper():
-        cele_velke.append(slovo)
+    elif word.isupper():
+        uppercase.append(word)
 
-    elif slovo.istitle():
-        prvni_velke.append(slovo)
+    elif word.istitle():
+        title_letter.append(word)
 
-    elif slovo.islower():
-        cele_male.append(slovo)
+    elif word.islower():
+        lowercase.append(word)
 
     else:
         continue
 
 print(f"""
-There are {len(zvoleny_text)} words in the selected text.
-There are {len(prvni_velke)} titlecase words.
-There are {len(cele_velke)} uppercase words.
-There are {len(cele_male)} lowercase words.
-There are {len(cisla)} numeric strings.
-The sum of all the numbers {sum(cisla)}.
+There are {len(selected_text)} words in the selected text.
+There are {len(title_letter)} titlecase words.
+There are {len(uppercase)} uppercase words.
+There are {len(lowercase)} lowercase words.
+There are {len(numbers)} numeric strings.
+The sum of all the numbers {sum(numbers)}.
 """)
 
-print(delici_cara)
+print(dividing_line)
 
-pismena = []
-mezera = None
+letters = []
+space = None
 
-cara = "-" * 30
+line = "-" * 30
 
-for slovo in zvoleny_text:
-    pismena.append(len(slovo))
+for word in selected_text:
+    letters.append(len(word))
 
-print(f"\nLEN |  OCCURENCES       | NR. \n{cara}")
-for cislo in range(min(pismena), max(pismena) + 1):
+print(f"\nLEN |  OCCURENCES       | NR. \n{line}")
+for number in range(min(letters), max(letters) + 1):
 
-    hvezdicky = "*" * pismena.count(cislo)
+    stars = "*" * letters.count(number)
 
-    if cislo <= 9:
-        mezera = " " * 2
+    if number <= 9:
+        space = " " * 2
     else:
-        mezera = " "
+        space = " "
 
-    mezera_2 = " " * (17 - len(hvezdicky))
+    space_2 = " " * (17 - len(stars))
 
-    print(f" {cislo}{mezera}|  {hvezdicky}{mezera_2}| {pismena.count(cislo)}")
+    print(f" {number}{space}|  {stars}{space_2}| {letters.count(number)}")
 
 
 
